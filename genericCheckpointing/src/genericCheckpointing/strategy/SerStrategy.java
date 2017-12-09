@@ -1,6 +1,7 @@
 package genericCheckpointing.strategy;
 import genericCheckpointing.util.SerializableObject;
+import genericCheckpointing.util.FileIOInterface;
 
 public interface SerStrategy{
-	public void processInput(SerializableObject sObj);
+	public SerializableObject processInput(SerializableObject sObj, FileIOInterface fio);
 }

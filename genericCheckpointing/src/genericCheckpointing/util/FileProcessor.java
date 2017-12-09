@@ -3,7 +3,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-public class FileProcessor{
+
+public class FileProcessor implements FileIOInterface{
 	BufferedReader reader;
 	File file;
 	/**
@@ -53,5 +54,12 @@ public class FileProcessor{
 			return null;
 		}
 		return null;
+	}
+
+	public void fpClose(){
+		try{reader.close();}
+		catch(IOException e){
+			System.err.format("IOException: %s%n", e);
+		}
 	}
 }

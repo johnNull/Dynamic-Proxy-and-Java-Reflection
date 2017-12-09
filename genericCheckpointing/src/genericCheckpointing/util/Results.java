@@ -1,7 +1,8 @@
 package genericCheckpointing;
 import java.io.PrintWriter;
 import java.io.IOException;
-public class Results implements FileDisplayInterface, StdoutDisplayInterface{
+import genericCheckpointing.util.FileIOInterface;
+public class Results implements FileDisplayInterface, StdoutDisplayInterface, FileIOInterface{
 	private String result = "", directory;
 	/**
 	 * Constructor for Results, sets output.txt directory

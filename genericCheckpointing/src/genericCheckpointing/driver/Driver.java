@@ -46,6 +46,10 @@ public class Driver {
 		MyAllTypesFirst myFirst;
 		MyAllTypesSecond  mySecond;
 
+		SerializableObject myRecordRet;
+		myRecordRet = ((RestoreI) cpointRef).readObj("XML");
+		myRecordRet = ((RestoreI) cpointRef).readObj("XML");
+
 		// Use an if/switch to proceed according to the command line argument
 		// For deser, just deserliaze the input file into the data structure and then print the objects
 		// The code below is for "serdeser" mode
@@ -53,7 +57,7 @@ public class Driver {
 
 		// create a data structure to store the objects being serialized
 		// NUM_OF_OBJECTS refers to the count for each of MyAllTypesFirst and MyAllTypesSecond
-		for (int i=0; i<NUM_OF_OBJECTS; i++) {
+		/*COMMENTS HEREfor (int i=0; i<NUM_OF_OBJECTS; i++) {
 
 		    // FIXME: create these object instances correctly using an explicit value constructor
 		    // use the index variable of this loop to change the values of the arguments to these constructors
@@ -73,7 +77,7 @@ public class Driver {
 
 		    myRecordRet = ((RestoreI) cpointRef).readObj("XML");
 		    // FIXME: store myRecordRet in the vector
-		}
+		}COMMENTS HERE*/
 
 		// FIXME: invoke a method on the handler to close the file (if it hasn't already been closed)
 

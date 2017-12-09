@@ -9,16 +9,24 @@ public class StoreRestoreHandler implements InvocationHandler{
 
 	private Object target;
 	private FileProcessor fp;
+	private Results r;
+	private SerStrategy strat;
 
 	public StoreRestoreHandler(String dir){
 		fp = new FileProcessor(dir);
+		r = new Results(dir);	
 	}
 
 	@Override
 	public Object invoke(Object proxy, Method m, Object[] args) throws Throwable{
-			Object result = m.invoke(target, args);
-			return result;
-
+			String mName = m.getName();
+			if(mName.equals("readObj")){
+				strat = new XMLDeserialization();
+				Object serialized;
+				serialized = strat.processInput(null, fp);
+			}
+			return null;
+			
 	}
 
 }
