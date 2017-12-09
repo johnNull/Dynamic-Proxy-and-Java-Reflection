@@ -13,51 +13,51 @@ public class MyAllTypesSecond extends SerializableObject{
 
 	}
 
-	public double getmyDouble(){
+	public double getmyDoubleT(){
 		return myDouble;
 	}
 
-	public void setmyDouble(double x){
+	public void setmyDoubleT(double x){
 		myDouble = x;
 	}
 
-	public double getmyOtherDouble(){
+	public double getmyOtherDoubleT(){
 		return myOtherDouble;
 	}
 
-	public void setmyOtherDouble(double x){
+	public void setmyOtherDoubleT(double x){
 		myOtherDouble = x;
 	}
 
-	public float getmyFloat(){
+	public float getmyFloatT(){
 		return myFloat;
 	}
 
-	public void setmyFloat(float x){
+	public void setmyFloatT(float x){
 		myFloat = x;
 	}
 
-	public short getmyShort(){
+	public short getmyShortT(){
 		return myShort;
 	}
 
-	public void setmyShort(short x){
+	public void setmyShortT(short x){
 		myShort = x;
 	}
 
-	public short getmyOtherShort(){
+	public short getmyOtherShortT(){
 		return myOtherShort;
 	}
 
-	public void setmyOtherShort(short x){
+	public void setmyOtherShortT(short x){
 		myOtherShort = x;
 	}
 
-	public char getmyChar(){
+	public char getmyCharT(){
 		return myChar;
 	}
 
-	public void setmyChar(char x){
+	public void setmyCharT(char x){
 		myChar = x;
 	}
 }

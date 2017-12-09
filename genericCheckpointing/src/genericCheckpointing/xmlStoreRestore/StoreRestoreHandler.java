@@ -24,6 +24,7 @@ public class StoreRestoreHandler implements InvocationHandler{
 				strat = new XMLDeserialization();
 				Object serialized;
 				serialized = strat.processInput(null, fp);
+				return serialized;
 			}
 			return null;
 			
