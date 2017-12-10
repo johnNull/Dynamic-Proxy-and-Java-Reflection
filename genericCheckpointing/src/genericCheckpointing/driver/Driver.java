@@ -46,16 +46,22 @@ public class Driver {
 		MyAllTypesFirst myFirst;
 		MyAllTypesSecond  mySecond;
 
-		SerializableObject myRecordRet;
+		/*SerializableObject myRecordRet;
 		SerializableObject myRecordRet2;
 		myRecordRet = ((RestoreI) cpointRef).readObj("XML");
 		myRecordRet2 = ((RestoreI) cpointRef).readObj("XML");
 		System.out.println(((MyAllTypesFirst)myRecordRet).getmyInt() + " I am in Driver");
-		System.out.println(((MyAllTypesSecond)myRecordRet2).getmyDoubleT() + " I am in Driver");
+		System.out.println(((MyAllTypesSecond)myRecordRet2).getmyDoubleT() + " I am in Driver");*/
 
-		/*myFirst = new MyAllTypesFirst();
+		myFirst = new MyAllTypesFirst();
+		myFirst.setmyInt(4);
+		myFirst.setmyOtherInt(2);
+		myFirst.setmyLong(32);
+		myFirst.setmyOtherLong(27);
+		myFirst.setmyString("Working");
+		myFirst.setmyBool(false);
 		((StoreI) cpointRef).writeObj(myFirst, 1, "XML");
-		((StoreI) cpointRef).writeObj(myFirst, 1, "XML");*/
+		((StoreI) cpointRef).writeObj(myFirst, 1, "XML");
 
 		// Use an if/switch to proceed according to the command line argument
 		// For deser, just deserliaze the input file into the data structure and then print the objects
