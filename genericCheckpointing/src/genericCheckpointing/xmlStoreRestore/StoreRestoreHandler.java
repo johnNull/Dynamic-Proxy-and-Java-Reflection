@@ -1,5 +1,6 @@
 package genericCheckpointing.xmlStoreRestore;
 import genericCheckpointing.util.FileProcessor;
+import genericCheckpointing.util.SerializableObject;
 import genericCheckpointing.Results;
 import genericCheckpointing.strategy.*;
 import java.lang.reflect.InvocationHandler;
@@ -26,8 +27,16 @@ public class StoreRestoreHandler implements InvocationHandler{
 				serialized = strat.processInput(null, fp);
 				return serialized;
 			}
+			if(mName.equals("writeObj")){
+				strat = new XMLSerialization();
+				strat.processInput((SerializableObject)args[0], r);
+			}
 			return null;
 			
+	}
+
+	public void closeFP(){
+		fp.fpClose();
 	}
 
 }

@@ -4,7 +4,10 @@ import genericCheckpointing.util.FileIOInterface;
 import genericCheckpointing.Results;
 
 public class XMLSerialization implements SerStrategy{
-	public SerializableObject processInput(SerializableObject s, FileIOInterface r){
+	Results r;
+	public SerializableObject processInput(SerializableObject s, FileIOInterface re){
+		r = (Results)re;
+		r.write("line");
 		return null;
 	}
 }

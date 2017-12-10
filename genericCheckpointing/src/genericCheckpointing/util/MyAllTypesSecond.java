@@ -60,4 +60,9 @@ public class MyAllTypesSecond extends SerializableObject{
 	public void setmyCharT(char x){
 		myChar = x;
 	}
+
+	@Override
+	public boolean equals(Object o){
+		return false;
+	}
 }

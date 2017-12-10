@@ -1,7 +1,5 @@
 package genericCheckpointing.strategy;
 import genericCheckpointing.util.SerializableObject;
-import genericCheckpointing.util.MyAllTypesFirst;
-import genericCheckpointing.util.MyAllTypesSecond;
 import genericCheckpointing.util.FileIOInterface;
 import genericCheckpointing.util.FileProcessor;
 import java.util.regex.Pattern;
@@ -23,13 +21,16 @@ public class XMLDeserialization implements SerStrategy{
 			ln = getNextClass();
 			System.out.println(ln);
 			Class<?> c = Class.forName(ln);
-			ln = fp.readLine();
-			fields = getFields(ln);
-			Class<?>[] sig = new Class<?>[]{getPrimClass(fields[0])};
-			Method m = c.getMethod("set" + fields[2], sig);
 			Object obj = c.newInstance();
-			Object[] params = new Object[]{getParamType(fields[0], fields[1])};
-			m.invoke(obj, params);
+			ln = fp.readLine();
+			while(!ln.equals(" </complexType>") && !ln.equals("\t</complexType>")){
+				fields = getFields(ln);
+				Class<?>[] sig = new Class<?>[]{getPrimClass(fields[0])};
+				Method m = c.getMethod("set" + fields[2], sig);
+				Object[] params = new Object[]{getParamType(fields[0], fields[1])};
+				m.invoke(obj, params);
+				ln = fp.readLine();
+			}
 			return (SerializableObject)obj;
 		}catch(ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e){System.out.println(e.toString());}
 		return null;

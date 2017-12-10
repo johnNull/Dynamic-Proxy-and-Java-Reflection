@@ -62,4 +62,8 @@ public class MyAllTypesFirst extends SerializableObject{
 		myBool = x;
 	}
 
+	@Override
+	public boolean equals(Object o){
+		return false;
+	}
 }

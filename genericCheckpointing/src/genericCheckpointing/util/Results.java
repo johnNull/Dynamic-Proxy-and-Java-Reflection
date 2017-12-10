@@ -1,14 +1,33 @@
 package genericCheckpointing;
 import java.io.PrintWriter;
 import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import genericCheckpointing.util.FileIOInterface;
 public class Results implements FileDisplayInterface, StdoutDisplayInterface, FileIOInterface{
 	private String result = "", directory;
+	private BufferedWriter bw;
+	private FileWriter fw;
+	private PrintWriter write;
 	/**
 	 * Constructor for Results, sets output.txt directory
 	 */
 	public Results(String dir){
 		directory = dir;
+		try{
+			if(directory != null && directory.contains(".txt")){
+				fw = new FileWriter(dir, true);
+				bw = new BufferedWriter(fw);
+				write = new PrintWriter(bw);
+				write.println("results created");
+				fw.write("From FileWriter");
+			}
+			else
+				System.err.format("No output file specified");
+		}
+		catch(IOException e){
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	/**
@@ -43,5 +62,10 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface, Fi
 	 */
 	public void append(String s){
 		result += s;
+	}
+
+	public void write(String s){
+		System.out.println("Writing?");
+		write.println(s);
 	}
 }
