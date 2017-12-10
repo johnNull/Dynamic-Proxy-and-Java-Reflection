@@ -54,6 +54,7 @@ public class Driver {
 		System.out.println(((MyAllTypesSecond)myRecordRet2).getmyDoubleT() + " I am in Driver");*/
 
 		myFirst = new MyAllTypesFirst();
+		mySecond = new MyAllTypesSecond();
 		myFirst.setmyInt(4);
 		System.out.println(myFirst.getmyInt());
 		myFirst.setmyOtherInt(2);
@@ -61,8 +62,14 @@ public class Driver {
 		myFirst.setmyOtherLong(27);
 		myFirst.setmyString("Working");
 		myFirst.setmyBool(false);
-		((StoreI) cpointRef).writeObj(myFirst, 1, "XML");
-		((StoreI) cpointRef).writeObj(myFirst, 1, "XML");
+		mySecond.setmyDoubleT(2);
+		mySecond.setmyOtherDoubleT(5);
+		mySecond.setmyFloatT(1f);
+		mySecond.setmyShortT((short)65);
+		mySecond.setmyOtherShortT((short)6);
+		mySecond.setmyCharT('a');
+		((StoreI) cpointRef).writeObj(mySecond, 1, "XML");
+		((StoreI) cpointRef).writeObj(mySecond, 1, "XML");
 
 		// Use an if/switch to proceed according to the command line argument
 		// For deser, just deserliaze the input file into the data structure and then print the objects

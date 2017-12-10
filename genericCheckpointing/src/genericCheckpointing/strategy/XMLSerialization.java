@@ -22,8 +22,8 @@ public class XMLSerialization implements SerStrategy{
 		return null;
 	}
 
-	//Assuming all fields of the class have getters, return all of the getter Methods
-	public String[] getFieldStrings(Class<?> cl, SerializableObject so){
+	//Assuming all fields of the class are primitive, and have getters that are named correctly, return all of the getter Methods
+	String[] getFieldStrings(Class<?> cl, SerializableObject so){
 			try{
 				Field[] fs = cl.getDeclaredFields();
 				Method[] ms = new Method[fs.length];
@@ -32,7 +32,25 @@ public class XMLSerialization implements SerStrategy{
 				}
 				String[] ss= new String[ms.length];
 				for(int i = 0; i < ms.length; i++){
-					ss[i] = "  <" + fs[i].getName() + " xsi:type=\"xsd:" + fs[i].getType().getName() + "\">" + ms[i].invoke(so) + "</" + fs[i].getName() + ">\n";
+					System.out.println(fs[i].getType().getName());
+					if(fs[i].getType().getName().equals("java.lang.String") || fs[i].getType().getName().equals("boolean") || fs[i].getType().getName().equals("char"))
+						ss[i] = "  <" + fs[i].getName() + " xsi:type=\"xsd:" + fs[i].getType().getName() + "\">" + ms[i].invoke(so) + "</" + fs[i].getName() + ">\n";
+					else if(fs[i].getType().getName().equals("float")){
+						if((float)ms[i].invoke(so) > 10)
+							ss[i] = "  <" + fs[i].getName() + " xsi:type=\"xsd:" + fs[i].getType().getName() + "\">" + ms[i].invoke(so) + "</" + fs[i].getName() + ">\n";
+						else
+							ss[i] = "";
+					}
+					else if(fs[i].getType().getName().equals("short")){
+						if((short)ms[i].invoke(so) > 10)
+							ss[i] = "  <" + fs[i].getName() + " xsi:type=\"xsd:" + fs[i].getType().getName() + "\">" + ms[i].invoke(so) + "</" + fs[i].getName() + ">\n";
+						else
+							ss[i] = "";
+					}
+					else if((double)ms[i].invoke(so) > 10)
+						ss[i] = "  <" + fs[i].getName() + " xsi:type=\"xsd:" + fs[i].getType().getName() + "\">" + ms[i].invoke(so) + "</" + fs[i].getName() + ">\n";
+					else
+						ss[i] = "";
 				}
 				return ss;
 			}catch(IllegalAccessException | InvocationTargetException | NoSuchMethodException e){e.toString();}
