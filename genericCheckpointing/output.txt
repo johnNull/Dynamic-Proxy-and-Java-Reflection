@@ -1,13 +1,47 @@
 <DPSerialization>
- <complexType xsi:type="genericCheckpointing.util.MyAllTypesSecond">
-  <myShortT xsi:type="xsd:short">65</myShortT>
-  <myCharT xsi:type="xsd:char">a</myCharT>
+ <complexType xsi:type="genericCheckpointing.util.MyAllTypesFirst">
+  <myString xsi:type="xsd:string">String: 0</myString>
+  <myBool xsi:type="xsd:boolean">true</myBool>
  </complexType>
 </DPSerialization>
 <DPSerialization>
  <complexType xsi:type="genericCheckpointing.util.MyAllTypesSecond">
-  <myShortT xsi:type="xsd:short">65</myShortT>
-  <myCharT xsi:type="xsd:char">a</myCharT>
+  <myFloatT xsi:type="xsd:float">0.0</myFloatT>
+  <myShortT xsi:type="xsd:short">0</myShortT>
+  <myOtherShortT xsi:type="xsd:short">0</myOtherShortT>
+  <myCharT xsi:type="xsd:char">A</myCharT>
+ </complexType>
+</DPSerialization>
+<DPSerialization>
+ <complexType xsi:type="genericCheckpointing.util.MyAllTypesFirst">
+  <myOtherLong xsi:type="xsd:long">10</myOtherLong>
+  <myString xsi:type="xsd:string">String: 1</myString>
+  <myBool xsi:type="xsd:boolean">false</myBool>
+ </complexType>
+</DPSerialization>
+<DPSerialization>
+ <complexType xsi:type="genericCheckpointing.util.MyAllTypesSecond">
+  <myFloatT xsi:type="xsd:float">2.33</myFloatT>
+  <myShortT xsi:type="xsd:short">9</myShortT>
+  <myOtherShortT xsi:type="xsd:short">2</myOtherShortT>
+  <myCharT xsi:type="xsd:char">B</myCharT>
+ </complexType>
+</DPSerialization>
+<DPSerialization>
+ <complexType xsi:type="genericCheckpointing.util.MyAllTypesFirst">
+  <myOtherInt xsi:type="xsd:int">10</myOtherInt>
+  <myOtherLong xsi:type="xsd:long">20</myOtherLong>
+  <myString xsi:type="xsd:string">String: 2</myString>
+  <myBool xsi:type="xsd:boolean">false</myBool>
+ </complexType>
+</DPSerialization>
+<DPSerialization>
+ <complexType xsi:type="genericCheckpointing.util.MyAllTypesSecond">
+  <myOtherDoubleT xsi:type="xsd:double">14.4</myOtherDoubleT>
+  <myFloatT xsi:type="xsd:float">4.66</myFloatT>
+  <myShortT xsi:type="xsd:short">18</myShortT>
+  <myOtherShortT xsi:type="xsd:short">4</myOtherShortT>
+  <myCharT xsi:type="xsd:char">C</myCharT>
  </complexType>
 </DPSerialization>
 

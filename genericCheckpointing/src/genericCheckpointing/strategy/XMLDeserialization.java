@@ -13,17 +13,18 @@ public class XMLDeserialization implements SerStrategy{
 	final Pattern classReg = Pattern.compile("<complexType xsi:type=\"(.+)\">");
 	FileProcessor fp;
 
+	//Create a SerializableObject based on XML fields and return it
 	public SerializableObject processInput(SerializableObject s, FileIOInterface filep){
 		try{
 			fp = (FileProcessor)filep;
 			String ln;
 			String[] fields;
 			ln = getNextClass();
-			System.out.println(ln);
+			if(ln == null) return null;
 			Class<?> c = Class.forName(ln);
 			Object obj = c.newInstance();
 			ln = fp.readLine();
-			while(!ln.equals(" </complexType>") && !ln.equals("\t</complexType>")){
+			while(!ln.equals(" </complexType>") && !ln.equals("\t</complexType>") && ln != null){
 				fields = getFields(ln);
 				Class<?>[] sig = new Class<?>[]{getPrimClass(fields[0])};
 				Method m = c.getMethod("set" + fields[2], sig);
@@ -36,25 +37,27 @@ public class XMLDeserialization implements SerStrategy{
 		return null;
 	}
 
+	//Return the type, value, and variable name of a field
 	String[] getFields(String ln){
-		System.out.println(ln + "I am here");
 		Matcher m = valFieldReg.matcher(ln);
 		m.find();
-		System.out.println(m.group(1) + " " + m.group(2) + " " + m.group(3));
 		return new String[]{m.group(1), m.group(2), m.group(3)};
 	}
 
+	//Find the string containing class info from XML and return the class name
 	String  getNextClass(){
 		String ln = "";
 		Matcher m = classReg.matcher(ln);
 		while(!m.find() || ln.equals("-1")){
 			ln = fp.readLine();
+			if(ln == null) return null;
 			m = classReg.matcher(ln);
 		}
 		return m.group(1);
 	}
 
 	//Could use apache ClassUtils, but not sure if that is allowed
+	//returns Class variable based on text input
 	Class getPrimClass(String type){
 		if(type.equals("int"))
 			return int.class;
@@ -75,6 +78,7 @@ public class XMLDeserialization implements SerStrategy{
 		return null;
 	}
 
+	//Parses input value according to specified type String
 	Object getParamType(String type, String val){
 		if(type.equals("int"))
 			return Integer.parseInt(val);

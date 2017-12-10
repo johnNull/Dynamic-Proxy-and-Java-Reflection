@@ -1,4 +1,5 @@
 package genericCheckpointing.util;
+import java.util.Objects;
 
 public class MyAllTypesFirst extends SerializableObject{
 	
@@ -9,11 +10,19 @@ public class MyAllTypesFirst extends SerializableObject{
 	private String myString;
 	private boolean myBool;
 	
+	public MyAllTypesFirst(){}
 
-	public MyAllTypesFirst(){
-
+	//explicit value constructor
+	public MyAllTypesFirst(int i, int i2, long l, long l2, String s, boolean b){
+		myInt = i;
+		myOtherInt = i2;
+		myLong = l;
+		myOtherLong = l2;
+		myString = s;
+		myBool = b;
 	}
 
+	//Getters and setters for fields
 	public int getmyInt(){
 		return myInt;
 	}
@@ -64,6 +73,22 @@ public class MyAllTypesFirst extends SerializableObject{
 
 	@Override
 	public boolean equals(Object o){
+		if(!(o instanceof MyAllTypesFirst))
+			return false;
+		MyAllTypesFirst obj = (MyAllTypesFirst)o;
+		if(myInt == obj.myInt && myOtherInt == obj.myOtherInt && myLong == obj.myLong && myOtherLong == obj.myOtherLong && myString.equals(obj.myString) && myBool == obj.myBool)
+			return true;
 		return false;
+	}
+
+	@Override
+	public int hashCode(){
+		int ret = Objects.hash(myInt, myOtherInt, myLong, myOtherLong, myString, myBool);
+		return ret;
+	}
+
+	@Override
+	public String toString(){
+		return "MyAllTypesFirst Fields:\nmyInt: " + myInt + "\nmyOtherInt: " + myOtherInt + "\nmyLong: " + myLong + "\nmyOtherLong: " + myOtherLong + "\nmyString: " + myString + "\nmyBool: " + myBool + "\n";
 	}
 }

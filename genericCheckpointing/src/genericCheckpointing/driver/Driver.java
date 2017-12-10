@@ -8,6 +8,7 @@ import genericCheckpointing.server.RestoreI;
 import genericCheckpointing.server.StoreI;
 import genericCheckpointing.server.StoreRestoreI;
 import genericCheckpointing.xmlStoreRestore.StoreRestoreHandler;
+import java.util.Vector;
 
 // import the other types used in this file
 
@@ -20,6 +21,8 @@ public class Driver {
 				throw new IllegalArgumentException("Three arguments are required, mode, number of objects, and file name");
 	else{
 		int NUM_OF_OBJECTS = 0;
+		int iterateAmt = 0;
+		boolean ser = true;
 		try{
 			NUM_OF_OBJECTS = Integer.parseInt(args[1]);
 		}
@@ -29,8 +32,6 @@ public class Driver {
 
 		ProxyCreator pc = new ProxyCreator();
 
-		// FIXME: done create an instance of StoreRestoreHandler (which implements
-		// the InvocationHandler
 		StoreRestoreHandler srh = new StoreRestoreHandler(args[2]);
 
 		// create a proxy
@@ -40,72 +41,74 @@ public class Driver {
 									 }, 
 									 srh
 									 );
-	
-		// FIXME: done invoke a method on the handler instance to set the file name for checkpointFile and open the file
 
 		MyAllTypesFirst myFirst;
 		MyAllTypesSecond  mySecond;
 
-		/*SerializableObject myRecordRet;
-		SerializableObject myRecordRet2;
-		myRecordRet = ((RestoreI) cpointRef).readObj("XML");
-		myRecordRet2 = ((RestoreI) cpointRef).readObj("XML");
-		System.out.println(((MyAllTypesFirst)myRecordRet).getmyInt() + " I am in Driver");
-		System.out.println(((MyAllTypesSecond)myRecordRet2).getmyDoubleT() + " I am in Driver");*/
-
-		myFirst = new MyAllTypesFirst();
-		mySecond = new MyAllTypesSecond();
-		myFirst.setmyInt(4);
-		System.out.println(myFirst.getmyInt());
-		myFirst.setmyOtherInt(2);
-		myFirst.setmyLong(32);
-		myFirst.setmyOtherLong(27);
-		myFirst.setmyString("Working");
-		myFirst.setmyBool(false);
-		mySecond.setmyDoubleT(2);
-		mySecond.setmyOtherDoubleT(5);
-		mySecond.setmyFloatT(1f);
-		mySecond.setmyShortT((short)65);
-		mySecond.setmyOtherShortT((short)6);
-		mySecond.setmyCharT('a');
-		((StoreI) cpointRef).writeObj(mySecond, 1, "XML");
-		((StoreI) cpointRef).writeObj(mySecond, 1, "XML");
 
 		// Use an if/switch to proceed according to the command line argument
 		// For deser, just deserliaze the input file into the data structure and then print the objects
 		// The code below is for "serdeser" mode
 		// For "serdeser" mode, both the serialize and deserialize functionality should be called.
+		if(args[0].equals("deser")){
+			ser = false;
+			iterateAmt = NUM_OF_OBJECTS;
+		}
+		else if(args[0].equals("serdeser")){
+			ser = true;
+			iterateAmt = NUM_OF_OBJECTS*2;
+		}
+		else
+			throw new IllegalArgumentException("Available modes are serdeser and deser");
 
 		// create a data structure to store the objects being serialized
 		// NUM_OF_OBJECTS refers to the count for each of MyAllTypesFirst and MyAllTypesSecond
-		/*COMMENTS HEREfor (int i=0; i<NUM_OF_OBJECTS; i++) {
+		Vector<SerializableObject> vOld = new Vector<SerializableObject>();
 
-		    // FIXME: create these object instances correctly using an explicit value constructor
-		    // use the index variable of this loop to change the values of the arguments to these constructors
-		    myFirst = new MyAllTypesFirst();
-		    mySecond = new MyAllTypesSecond();
+		//Serialize
+		for (int i=0; i<NUM_OF_OBJECTS && ser; i++) {
+		    	myFirst = new MyAllTypesFirst(i*3, i*5, i+1, i*10, "String: " + i, (i%3 == 0));
+		    	mySecond = new MyAllTypesSecond(i*3.14, i*7.2, i * 2.33f, (short)(i*9), (short)(i*2), (char)(i + 65));
+			vOld.add(myFirst);
+			vOld.add(mySecond);
 
-		    // FIXME: store myFirst and mySecond in the data structure
+		    // store myFirst and mySecond in the data structure
 		    ((StoreI) cpointRef).writeObj(myFirst, 1, "XML");
 		    ((StoreI) cpointRef).writeObj(mySecond, 1, "XML");
 
 		}
 
 		SerializableObject myRecordRet;
-
 		// create a data structure to store the returned ojects
-		for (int j=0; j<2*NUM_OF_OBJECTS; j++) {
+		Vector<SerializableObject> vNew = new Vector<SerializableObject>();
+		
+		//Deserialize
+		for (int j=0; j<iterateAmt; j++) {
 
-		    myRecordRet = ((RestoreI) cpointRef).readObj("XML");
-		    // FIXME: store myRecordRet in the vector
-		}COMMENTS HERE*/
-
-		// FIXME: invoke a method on the handler to close the file (if it hasn't already been closed)
+		    	myRecordRet = ((RestoreI) cpointRef).readObj("XML");
+			if(myRecordRet == null)
+			throw new IllegalArgumentException("Number of objects is too large");
+		    	vNew.add(myRecordRet);
+		}
+		// invoke a method on the handler to close the file (if it hasn't already been closed)
 		srh.closeFP();
 
-		// FIXME: compare and confirm that the serialized and deserialzed objects are equal. 
+		// compare and confirm that the serialized and deserialzed objects are equal. 
 		// The comparison should use the equals and hashCode methods. Note that hashCode 
 		// is used for key-value based data structures
+		int mismatch = 0;
+		if(vOld.size() == vNew.size() && ser){		
+			for(int i = 0; i < vOld.size(); i++){
+				if(!vOld.get(i).equals(vNew.get(i)) && vOld.get(i).hashCode() != vNew.get(i).hashCode())
+					mismatch++;
+			}
+			System.out.println(mismatch + " mismatched objects");
+		}
+		else{
+			for(int i = 0; i < vNew.size(); i++)
+				System.out.println(vNew.get(i).toString());
+		}
+		
 	}
     
     }

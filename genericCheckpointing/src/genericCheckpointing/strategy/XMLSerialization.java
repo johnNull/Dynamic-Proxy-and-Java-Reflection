@@ -8,6 +8,8 @@ import java.lang.reflect.InvocationTargetException;
 
 public class XMLSerialization implements SerStrategy{
 	Results r;
+
+	//Set up Serialization String for one Object and write it to the file
 	public SerializableObject processInput(SerializableObject s, FileIOInterface re){
 		r = (Results)re;
 		r.append("<DPSerialization>\n");
@@ -22,7 +24,8 @@ public class XMLSerialization implements SerStrategy{
 		return null;
 	}
 
-	//Assuming all fields of the class are primitive, and have getters that are named correctly, return all of the getter Methods
+	//Assuming all fields of the class are primitive, and have getters that are named correctly
+	//return string formatted for field values
 	String[] getFieldStrings(Class<?> cl, SerializableObject so){
 			try{
 				Field[] fs = cl.getDeclaredFields();
@@ -32,28 +35,29 @@ public class XMLSerialization implements SerStrategy{
 				}
 				String[] ss= new String[ms.length];
 				for(int i = 0; i < ms.length; i++){
-					System.out.println(fs[i].getType().getName());
-					if(fs[i].getType().getName().equals("java.lang.String") || fs[i].getType().getName().equals("boolean") || fs[i].getType().getName().equals("char"))
+					if(fs[i].getType().getName().equals("boolean") || fs[i].getType().getName().equals("char") || fs[i].getType().getName().equals("float") || fs[i].getType().getName().equals("short"))
 						ss[i] = "  <" + fs[i].getName() + " xsi:type=\"xsd:" + fs[i].getType().getName() + "\">" + ms[i].invoke(so) + "</" + fs[i].getName() + ">\n";
-					else if(fs[i].getType().getName().equals("float")){
-						if((float)ms[i].invoke(so) > 10)
+					else if(fs[i].getType().getName().equals("java.lang.String"))
+						ss[i] = "  <" + fs[i].getName() + " xsi:type=\"xsd:string\">" + ms[i].invoke(so) + "</" + fs[i].getName() + ">\n";
+					else if(fs[i].getType().getName().equals("int")){
+						if((int)ms[i].invoke(so) >= 10)
 							ss[i] = "  <" + fs[i].getName() + " xsi:type=\"xsd:" + fs[i].getType().getName() + "\">" + ms[i].invoke(so) + "</" + fs[i].getName() + ">\n";
 						else
 							ss[i] = "";
 					}
-					else if(fs[i].getType().getName().equals("short")){
-						if((short)ms[i].invoke(so) > 10)
+					else if(fs[i].getType().getName().equals("long")){
+						if((long)ms[i].invoke(so) >= 10)
 							ss[i] = "  <" + fs[i].getName() + " xsi:type=\"xsd:" + fs[i].getType().getName() + "\">" + ms[i].invoke(so) + "</" + fs[i].getName() + ">\n";
 						else
 							ss[i] = "";
 					}
-					else if((double)ms[i].invoke(so) > 10)
+					else if((double)ms[i].invoke(so) >= 10)
 						ss[i] = "  <" + fs[i].getName() + " xsi:type=\"xsd:" + fs[i].getType().getName() + "\">" + ms[i].invoke(so) + "</" + fs[i].getName() + ">\n";
 					else
 						ss[i] = "";
 				}
 				return ss;
-			}catch(IllegalAccessException | InvocationTargetException | NoSuchMethodException e){e.toString();}
+			}catch(IllegalAccessException | InvocationTargetException | NoSuchMethodException e){System.out.println(e.toString());}
 			return null;
 	}
 }

@@ -13,11 +13,14 @@ public class StoreRestoreHandler implements InvocationHandler{
 	private Results r;
 	private SerStrategy strat;
 
+	//constructor that takes directory for input/output files
 	public StoreRestoreHandler(String dir){
 		fp = new FileProcessor(dir);
 		r = new Results(dir);	
 	}
 
+	//redirect writeObj calls to XMLSerialization strategy for processing input
+	//or redirect readObj calls to XMLDeserialization strategy for processing input
 	@Override
 	public Object invoke(Object proxy, Method m, Object[] args) throws Throwable{
 			String mName = m.getName();
@@ -35,6 +38,7 @@ public class StoreRestoreHandler implements InvocationHandler{
 			
 	}
 
+	//closes file processor
 	public void closeFP(){
 		fp.fpClose();
 	}

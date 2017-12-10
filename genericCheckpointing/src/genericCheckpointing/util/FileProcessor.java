@@ -42,7 +42,7 @@ public class FileProcessor implements FileIOInterface{
 				if(line != null)
 					return line;
 				else{
-					return "-1";
+					return null;
 				}
 			}
 			catch(IOException e){
