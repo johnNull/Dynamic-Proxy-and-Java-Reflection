@@ -55,6 +55,7 @@ public class Driver {
 
 		myFirst = new MyAllTypesFirst();
 		myFirst.setmyInt(4);
+		System.out.println(myFirst.getmyInt());
 		myFirst.setmyOtherInt(2);
 		myFirst.setmyLong(32);
 		myFirst.setmyOtherLong(27);

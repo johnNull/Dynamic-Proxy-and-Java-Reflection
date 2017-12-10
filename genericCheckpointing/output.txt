@@ -1,19 +1,21 @@
 <DPSerialization>
  <complexType xsi:type="genericCheckpointing.util.MyAllTypesFirst">
-  <myInt xsi:type="xsd:int">0</myInt>
-  <myOtherInt xsi:type="xsd:int">0</myOtherInt>
-  <myLong xsi:type="xsd:long">0</myLong>
-  <myOtherLong xsi:type="xsd:long">0</myOtherLong>
-  <myString xsi:type="xsd:java.lang.String">0</myString>
-  <myBool xsi:type="xsd:boolean">0</myBool>
- </complexType></DPSerialization>
+  <myInt xsi:type="xsd:int">4</myInt>
+  <myOtherInt xsi:type="xsd:int">2</myOtherInt>
+  <myLong xsi:type="xsd:long">32</myLong>
+  <myOtherLong xsi:type="xsd:long">27</myOtherLong>
+  <myString xsi:type="xsd:java.lang.String">Working</myString>
+  <myBool xsi:type="xsd:boolean">false</myBool>
+ </complexType>
+</DPSerialization>
 <DPSerialization>
  <complexType xsi:type="genericCheckpointing.util.MyAllTypesFirst">
-  <myInt xsi:type="xsd:int">0</myInt>
-  <myOtherInt xsi:type="xsd:int">0</myOtherInt>
-  <myLong xsi:type="xsd:long">0</myLong>
-  <myOtherLong xsi:type="xsd:long">0</myOtherLong>
-  <myString xsi:type="xsd:java.lang.String">0</myString>
-  <myBool xsi:type="xsd:boolean">0</myBool>
- </complexType></DPSerialization>
+  <myInt xsi:type="xsd:int">4</myInt>
+  <myOtherInt xsi:type="xsd:int">2</myOtherInt>
+  <myLong xsi:type="xsd:long">32</myLong>
+  <myOtherLong xsi:type="xsd:long">27</myOtherLong>
+  <myString xsi:type="xsd:java.lang.String">Working</myString>
+  <myBool xsi:type="xsd:boolean">false</myBool>
+ </complexType>
+</DPSerialization>
 
